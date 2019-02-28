@@ -4,6 +4,7 @@ let HtmlWebpackPlugin = require('html-webpack-plugin')
 let MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+// let webpack = require('webpack')
 
 module.exports = {
   optimization: { // 优化项
@@ -23,8 +24,9 @@ module.exports = {
   mode: 'production', // 模式默认有两种production development开发模式代码不压缩看的清晰
   entry: './src/index.js', // 入口文件
   output: {
-    filename: 'bundle.[chunkhash].js', // 打包后文件名
+    filename: '/js/bundle.[chunkhash].js', // 打包后文件名
     path: path.resolve(__dirname, 'dist'), //打包后路径必须是绝对路径resolve方法把相对路径解析成绝对路径，__dirname加不加都可以，它代表在当前目录下产生一个dist目录
+    publicPath: 'http://www.weilongyun.com' // 给所有打包文件引入时加前缀，包括css，js，img，如果只想处理图片可以单独在url-loader配置中加publicPath（上传七牛云等cdn加速时可用）
   },
   plugins: [ // 数组，放着所有webpack插件
     new HtmlWebpackPlugin({ // 用于使用模板打包时生成index.html文件，并且在run dev时会将模板文件也打包到内存中
@@ -37,9 +39,15 @@ module.exports = {
       }
     }),
     new MiniCssExtractPlugin({ // 抽离css样式
-      filename: 'main.[chunkhash].css'// 抽离出来的文件名
+      filename: '/css/main.[chunkhash].css'// 抽离出来的文件名
     })
+    // new webpack.ProvidePlugin({ // 在每个模块中都注入$
+    //   $: 'jquery'
+    // })
   ],
+  externals: {
+    jquery: "$"
+  },
   module: { // 模块
     // loader
     rules: [ // 规则 loader的特点-希望单一功能
@@ -68,6 +76,35 @@ module.exports = {
           'postcss-loader',
           'less-loader' // 把less转换成css
         ]
+      },
+      {
+        test: /\.js$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: { // 用babel-loader吧es6转换成es5
+              presets: [ // 预设规则
+                '@babel/preset-env'
+              ],
+              plugins: [ // 此处配置有顺序
+                ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                ["@babel/plugin-proposal-class-properties", { "loose" : true }]
+              ]
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: {
+          loader: 'url-loader',
+          // 做一个限制，当图片小于多少k时用base64转化，否则用file-loader将图片产出
+          options: {
+            limit: 2*1024,
+            // dist打包文件中的输出路径
+            outputPath: '/img/'
+          }
+        }
       }
     ]
   }
