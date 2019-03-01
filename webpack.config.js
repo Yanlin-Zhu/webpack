@@ -10,7 +10,7 @@ module.exports = {
   // devtool: 'source-map', // 增加的映射文件可以帮我们调试源代码，特点：大和全
   // devtool: 'eval-source-map', // 不会产生单独的映射文件会直接打包到打包文件中，可以产生报错行和列
   // devtool: 'cheap-module-source-map', // 不会产生列，会产生一个单独的映射文件
-  devtool: 'cheap-module-eval-source-map', // 不会产生文件，也不会产生列 
+  devtool: 'cheap-module-eval-source-map', // 不会产生文件，也不会产生列
   performance: {
     hints:false
   },
