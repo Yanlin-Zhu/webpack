@@ -4,7 +4,9 @@
   "description": "https://github.com/Yanlin-Zhu/webpack\r ###webpack安装\r > 安装本地webpack\r 安装webpack和webpack-cli",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -14,8 +16,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-loader": "^8.0.5",
     "html-webpack-plugin": "^3.2.0",
     "webpack": "^4.29.5",
-    "webpack-cli": "^3.2.3"
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1"
   }
 }
