@@ -4,7 +4,9 @@ let HtmlWebpackPlugin = require('html-webpack-plugin')
 let MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-// let webpack = require('webpack')
+let webpack = require('webpack')
+let CleanWebpackPlugin = require("clean-webpack-plugin")
+let CopyWebpackPlugin = require("copy-webpack-plugin")
 
 module.exports = {
   optimization: { // 优化项
@@ -24,7 +26,7 @@ module.exports = {
   mode: 'production', // 模式默认有两种production development开发模式代码不压缩看的清晰
   entry: './src/index.js', // 入口文件
   output: {
-    filename: '/js/bundle.[chunkhash].js', // 打包后文件名
+    filename: './js/bundle.[chunkhash].js', // 打包后文件名
     path: path.resolve(__dirname, 'dist'), //打包后路径必须是绝对路径resolve方法把相对路径解析成绝对路径，__dirname加不加都可以，它代表在当前目录下产生一个dist目录
     publicPath: 'http://www.weilongyun.com' // 给所有打包文件引入时加前缀，包括css，js，img，如果只想处理图片可以单独在url-loader配置中加publicPath（上传七牛云等cdn加速时可用）
   },
@@ -40,7 +42,12 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({ // 抽离css样式
       filename: '/css/main.[chunkhash].css'// 抽离出来的文件名
-    })
+    }),
+    new CleanWebpackPlugin(),
+    new CopyWebpackPlugin([
+      {from: './src/doc', to: './'}
+    ]),
+    new webpack.BannerPlugin('make 2019 by zhuyanlin')
     // new webpack.ProvidePlugin({ // 在每个模块中都注入$
     //   $: 'jquery'
     // })
