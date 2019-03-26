@@ -21,7 +21,17 @@ module.exports = {
   },
   devServer: { // 开发服务器的配置（webpack-dev-server）
     port: 3000,
-    progress: true
+    progress: true,
+    proxy:{
+      "/fe": {
+          target: "http://127.0.0.1:3000",
+          changeOrigin: true,
+          ws: true,
+          pathRewrite: {
+            "^/fe": ""
+          }
+        }
+      }
   },
   mode: 'production', // 模式默认有两种production development开发模式代码不压缩看的清晰
   entry: './src/index.js', // 入口文件
@@ -47,7 +57,11 @@ module.exports = {
     new CopyWebpackPlugin([
       {from: './src/doc', to: './'}
     ]),
-    new webpack.BannerPlugin('make 2019 by zhuyanlin')
+    new webpack.BannerPlugin('make 2019 by zhuyanlin'),
+    new webpack.DefinePlugin({
+      DEV: JSON,stringify('dev'),
+      AAA: 'true'
+    })
     // new webpack.ProvidePlugin({ // 在每个模块中都注入$
     //   $: 'jquery'
     // })
