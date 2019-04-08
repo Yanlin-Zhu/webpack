@@ -19,6 +19,9 @@ module.exports = {
       new OptimizeCSSAssetsPlugin({}) // 压缩css
     ]
   },
+  resolve: { // 解析优先路径等配置
+    alias: {} // 别名
+  },
   devServer: { // 开发服务器的配置（webpack-dev-server）
     port: 3000,
     progress: true,
@@ -33,7 +36,6 @@ module.exports = {
         }
       }
   },
-  mode: 'production', // 模式默认有两种production development开发模式代码不压缩看的清晰
   entry: './src/index.js', // 入口文件
   output: {
     filename: './js/bundle.[chunkhash].js', // 打包后文件名
@@ -59,7 +61,7 @@ module.exports = {
     ]),
     new webpack.BannerPlugin('make 2019 by zhuyanlin'),
     new webpack.DefinePlugin({
-      DEV: JSON,stringify('dev'),
+      DEV: JSON.stringify('dev'),
       AAA: 'true'
     })
     // new webpack.ProvidePlugin({ // 在每个模块中都注入$
@@ -70,6 +72,7 @@ module.exports = {
     jquery: "$"
   },
   module: { // 模块
+    noParse: /jquery/, // 不去解析jquery中的依赖库
     // loader
     rules: [ // 规则 loader的特点-希望单一功能
       // css-loader-解析css文件包括css文件的引入（@import）语法等
