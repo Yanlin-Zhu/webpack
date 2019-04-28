@@ -9,6 +9,12 @@ let CleanWebpackPlugin = require("clean-webpack-plugin")
 let CopyWebpackPlugin = require("copy-webpack-plugin")
 
 module.exports = {
+  entry: './src/index.js', // 入口文件
+  output: {
+    filename: './js/bundle.[chunkhash].js', // 打包后文件名
+    path: path.resolve(__dirname, 'dist'), //打包后路径必须是绝对路径resolve方法把相对路径解析成绝对路径，__dirname加不加都可以，它代表在当前目录下产生一个dist目录
+    // publicPath: '/' // 给所有打包文件引入时加前缀，包括css，js，img，如果只想处理图片可以单独在url-loader配置中加publicPath（上传七牛云等cdn加速时可用）
+  },
   optimization: { // 优化项
     minimizer: [
       new UglifyJsPlugin({ // 压缩js
@@ -23,7 +29,8 @@ module.exports = {
     alias: {} // 别名
   },
   devServer: { // 开发服务器的配置（webpack-dev-server）
-    port: 3000,
+    // contentBase: path.join(__dirname, "dist"),
+    port: 3001,
     progress: true,
     proxy:{
       "/fe": {
@@ -35,12 +42,6 @@ module.exports = {
           }
         }
       }
-  },
-  entry: './src/index.js', // 入口文件
-  output: {
-    filename: './js/bundle.[chunkhash].js', // 打包后文件名
-    path: path.resolve(__dirname, 'dist'), //打包后路径必须是绝对路径resolve方法把相对路径解析成绝对路径，__dirname加不加都可以，它代表在当前目录下产生一个dist目录
-    publicPath: 'http://www.weilongyun.com' // 给所有打包文件引入时加前缀，包括css，js，img，如果只想处理图片可以单独在url-loader配置中加publicPath（上传七牛云等cdn加速时可用）
   },
   plugins: [ // 数组，放着所有webpack插件
     new HtmlWebpackPlugin({ // 用于使用模板打包时生成index.html文件，并且在run dev时会将模板文件也打包到内存中
@@ -55,10 +56,11 @@ module.exports = {
     new MiniCssExtractPlugin({ // 抽离css样式
       filename: '/css/main.[chunkhash].css'// 抽离出来的文件名
     }),
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin,
     new CopyWebpackPlugin([
       {from: './src/doc', to: './'}
     ]),
+    new webpack.IgnorePlugin(/\.\/local/, /moment/),
     new webpack.BannerPlugin('make 2019 by zhuyanlin'),
     new webpack.DefinePlugin({
       DEV: JSON.stringify('dev'),
@@ -113,13 +115,16 @@ module.exports = {
               plugins: [ // 此处配置有顺序
                 ["@babel/plugin-proposal-decorators", { "legacy": true }],
                 ["@babel/plugin-proposal-class-properties", { "loose" : true }]
+                // "@babel/plugin-transform-runtime"
               ]
             }
           }
-        ]
+        ],
+        // exculde: /node_modules/
+        // inculde: path.resolve(__dirname, 'src')
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|jpge|gif)$/,
         use: {
           loader: 'url-loader',
           // 做一个限制，当图片小于多少k时用base64转化，否则用file-loader将图片产出
