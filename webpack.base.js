@@ -110,7 +110,8 @@ module.exports = {
             loader: 'babel-loader',
             options: { // 用babel-loader吧es6转换成es5
               presets: [ // 预设规则
-                '@babel/preset-env'
+                '@babel/preset-env',
+                '@babel/preset-react'
               ],
               plugins: [ // 此处配置有顺序
                 ["@babel/plugin-proposal-decorators", { "legacy": true }],
