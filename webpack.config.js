@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const DllReferencePlugin = require('webpack/lib/DllReferencePlugin');
 const HappyPack = require('happypack');
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // 构造出共享进程池，进程池中包含5个子进程
 const happyThreadPool = HappyPack.ThreadPool({ size: 3 });
 
@@ -34,7 +34,9 @@ module.exports = {
             {
                 // 把对 .css 文件的处理转交给 id 为 css 的 HappyPack 实例
                 test: /\.css$/,
-                use: ['happypack/loader?id=css']
+                use: ExtractTextPlugin.extract({
+                  use: ['happypack/loader?id=css'],
+                }),
             }
         ]
     },
@@ -63,13 +65,14 @@ module.exports = {
       new HappyPack({
         id: 'css',
         // 如何处理 .css 文件，用法和 Loader 配置中一样
-        loaders: ['style-loader', 'css-loader'],
+        loaders: ['css-loader'],
         // 使用共享进程池中的子进程去处理任务
         threadPool: happyThreadPool,
       }),
-      // new ExtractTextPlugin({
-      //   filename: `[name].css`,
-      // }),
+      // css代码分离后style-loader就不需要了，另外webpack4要安装extract-text-webpack-plugin@next并且去掉style-loader使用会有冲突
+      new ExtractTextPlugin({
+        filename: `../css/[name].[chunkhash].css`,
+      }),
     ],
     devServer: {
       contentBase: path.join(__dirname, "dist"),
