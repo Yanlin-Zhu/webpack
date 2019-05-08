@@ -3,6 +3,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const DllReferencePlugin = require('webpack/lib/DllReferencePlugin');
 const HappyPack = require('happypack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ModuleConcatenationPlugin = require('webpack/lib/optimize/ModuleConcatenationPlugin');
 // const CleanWebpackPlugin = require('clean-webpack-plugin')
 // 构造出共享进程池，进程池中包含5个子进程
 const happyThreadPool = HappyPack.ThreadPool({ size: 3 });
@@ -49,6 +50,8 @@ module.exports = {
         ]
     },
     plugins: [
+      // 开启 Scope Hoisting
+      // new ModuleConcatenationPlugin(),
       // new CleanWebpackPlugin(),
       new HtmlWebPackPlugin({
         template: "./index.html",
