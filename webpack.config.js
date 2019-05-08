@@ -6,6 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // 构造出共享进程池，进程池中包含5个子进程
 const happyThreadPool = HappyPack.ThreadPool({ size: 3 });
 
+// webpack4生产环境默认使用UglifyJsPlugin压缩js代码
 module.exports = {
     entry: path.resolve(__dirname, './src/index.js'), //指定入口文件，程序从这里开始编译,__dirname当前所在目录, ../表示上一级目录, ./同级目录
     output: {
@@ -28,6 +29,8 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 // 把对 .js 文件的处理转交给 id 为 babel 的 HappyPack 实例
                 use: ['happypack/loader?id=babel'],
+                // 只对项目根目录下的 src 目录中的文件采用 babel-loader
+                include: path.resolve(__dirname, 'src'),
                 // 排除 node_modules 目录下的文件，node_modules 目录下的文件都是采用的 ES5 语法，没必要再通过 Babel 去转换
                 exclude: path.resolve(__dirname, 'node_modules'),
             },
@@ -37,6 +40,10 @@ module.exports = {
                 use: ExtractTextPlugin.extract({
                   use: ['happypack/loader?id=css'],
                 }),
+                // 只对项目根目录下的 src 目录中的文件采用 babel-loader
+                include: path.resolve(__dirname, 'src'),
+                // 排除 node_modules 目录下的文件，node_modules 目录下的文件都是采用的 ES5 语法，没必要再通过 Babel 去转换
+                exclude: path.resolve(__dirname, 'node_modules'),
             }
         ]
     },
@@ -58,7 +65,7 @@ module.exports = {
         // 用唯一的标识符 id 来代表当前的 HappyPack 是用来处理一类特定的文件
         id: 'babel',
         // 如何处理 .js 文件，用法和 Loader 配置中一样
-        loaders: ['babel-loader'],
+        loaders: ['babel-loader?cacheDirectory'],
         // 使用共享进程池中的子进程去处理任务
         threadPool: happyThreadPool,
       }),
