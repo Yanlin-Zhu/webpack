@@ -91,6 +91,7 @@
   !*** delegated ./node_modules/react-dom/index.js from dll-reference _dll_react ***!
   \*********************************************************************************/
 /*! no static exports found */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 eval("module.exports = (__webpack_require__(/*! dll-reference _dll_react */ \"dll-reference _dll_react\"))(4);\n\n//# sourceURL=webpack:///delegated_./node_modules/react-dom/index.js_from_dll-reference__dll_react?");
@@ -102,6 +103,7 @@ eval("module.exports = (__webpack_require__(/*! dll-reference _dll_react */ \"dl
   !*** delegated ./node_modules/react/index.js from dll-reference _dll_react ***!
   \*****************************************************************************/
 /*! no static exports found */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
 
 eval("module.exports = (__webpack_require__(/*! dll-reference _dll_react */ \"dll-reference _dll_react\"))(0);\n\n//# sourceURL=webpack:///delegated_./node_modules/react/index.js_from_dll-reference__dll_react?");
@@ -109,14 +111,16 @@ eval("module.exports = (__webpack_require__(/*! dll-reference _dll_react */ \"dl
 /***/ }),
 
 /***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
+/*!**********************************!*\
+  !*** ./src/index.js + 1 modules ***!
+  \**********************************/
 /*! no exports provided */
+/*! ModuleConcatenation bailout: Cannot concat with delegated ./node_modules/react/index.js from dll-reference _dll_react (<- Module is not an ECMAScript module) */
+/*! ModuleConcatenation bailout: Cannot concat with delegated ./node_modules/react-dom/index.js from dll-reference _dll_react (<- Module is not an ECMAScript module) */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _style_index_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style/index.css */ \"./src/style/index.css\");\n/* harmony import */ var _style_index_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_style_index_css__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util.js */ \"./src/util.js\");\n\n\n\n\nconsole.log(_util_js__WEBPACK_IMPORTED_MODULE_3__[\"default\"]);\nObject(react_dom__WEBPACK_IMPORTED_MODULE_1__[\"render\"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", null, \"Hello React!!!\"), document.getElementById('app'));\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n\n// EXTERNAL MODULE: delegated ./node_modules/react/index.js from dll-reference _dll_react\nvar reactfrom_dll_reference_dll_react = __webpack_require__(\"./node_modules/react/index.js\");\nvar reactfrom_dll_reference_dll_react_default = /*#__PURE__*/__webpack_require__.n(reactfrom_dll_reference_dll_react);\n\n// EXTERNAL MODULE: delegated ./node_modules/react-dom/index.js from dll-reference _dll_react\nvar react_domfrom_dll_reference_dll_react = __webpack_require__(\"./node_modules/react-dom/index.js\");\n\n// EXTERNAL MODULE: ./src/style/index.css\nvar style = __webpack_require__(\"./src/style/index.css\");\n\n// CONCATENATED MODULE: ./src/util.js\n/* harmony default export */ var util = ('Hello,Webpack');\n// CONCATENATED MODULE: ./src/index.js\n\n\n\n\nconsole.log(util);\nObject(react_domfrom_dll_reference_dll_react[\"render\"])(reactfrom_dll_reference_dll_react_default.a.createElement(\"div\", null, \"Hello React!!!\"), document.getElementById('app'));\n\n//# sourceURL=webpack:///./src/index.js_+_1_modules?");
 
 /***/ }),
 
@@ -125,21 +129,10 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
   !*** ./src/style/index.css ***!
   \*****************************/
 /*! no static exports found */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
 
 eval("// removed by extract-text-webpack-plugin\n\n//# sourceURL=webpack:///./src/style/index.css?");
-
-/***/ }),
-
-/***/ "./src/util.js":
-/*!*********************!*\
-  !*** ./src/util.js ***!
-  \*********************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = ('Hello,Webpack');\n\n//# sourceURL=webpack:///./src/util.js?");
 
 /***/ }),
 
@@ -148,6 +141,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ 
   !*** external "_dll_react" ***!
   \*****************************/
 /*! no static exports found */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
 
 eval("module.exports = _dll_react;\n\n//# sourceURL=webpack:///external_%22_dll_react%22?");
